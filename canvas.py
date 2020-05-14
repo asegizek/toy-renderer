@@ -9,9 +9,12 @@ class Canvas2D:
         self.height = height
         self.pixel_buffer = pixel_buffer
 
-    
-    def draw_line(self, x0: int, y0: int, x1: int, y1: int, color: int) -> None:
 
+    def draw_point(self, x: int, y: int, color: int):
+        self.pixel_buffer.fill_pixel(x, y, color)
+    
+
+    def draw_line(self, x0: int, y0: int, x1: int, y1: int, color: int):
         if x0 == x1:
             y_start = min(y0, y1)
             y_end = max(y0, y1)
@@ -23,3 +26,9 @@ class Canvas2D:
             x_end = max(x0, x1)
             for x in range(x_start, x_end + 1):
                 self.pixel_buffer.fill_pixel(x, y0, color)
+
+
+    def draw_rect(self, x: int, y: int, width: int, height: int, color: int):
+        self.pixel_buffer.fill_rect(x, y, width, height, color)
+
+    
