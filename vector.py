@@ -1,4 +1,4 @@
-
+from point import *
 
 
 class Vec2:
@@ -35,11 +35,15 @@ class Vec2:
         self.y -= other.y
         return self
 
+    @classmethod
+    def point(cls, point: Point2):
+        return Vec2(point.x, point.y)
+
     def __str__(self):
-        return f"({self.x}, {self.y})"
+        return f"Vec2({self.x}, {self.y})"
 
     def __repr__(self):
-        return f"({self.x}, {self.y})"
+        return f"Vec2({self.x}, {self.y}) at {hex(id(self))}"
 
 
 
@@ -83,9 +87,13 @@ class Vec3:
         self.y -= other.y
         self.z -= other.z
         return self
+        
+    @classmethod
+    def point(cls, point: Point3):
+        return Vec3(point.x, point.y, point.z)
 
     def __str__(self):
-        return f"({self.x}, {self.y}, {self.z})"
+        return f"Vec3({self.x}, {self.y}, {self.z})"
 
     def __repr__(self):
-        return f"({self.x}, {self.y}, {self.z})"
+        return f"Vec3({self.x}, {self.y}, {self.z}) at {hex(id(self))}"
