@@ -37,6 +37,9 @@ class Vec2:
 
     @classmethod
     def point(cls, point: Point2):
+        """
+        Helper method that converts Point2() object into Vec2
+        """
         return Vec2(point.x, point.y)
 
     def __str__(self):
@@ -90,6 +93,9 @@ class Vec3:
         
     @classmethod
     def point(cls, point: Point3):
+        """
+        Helper method that converts Point3() object into Vec3
+        """
         return Vec3(point.x, point.y, point.z)
 
     def __str__(self):
