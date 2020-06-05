@@ -93,7 +93,7 @@ class Vec3:
         return Vec3(point.x, point.y, point.z)
 
     def __str__(self):
-        return f"Vec3<{self.x}, {self.y}, {self.z}>"
+        return f"<{self.x}, {self.y}, {self.z}>"
 
     def __repr__(self):
         return f"Vec3<{self.x}, {self.y}, {self.z}> at {hex(id(self))}"
