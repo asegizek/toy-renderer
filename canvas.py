@@ -1,5 +1,7 @@
 from pixel_buffer import PixelBuffer
 from utils import sign
+from vector import Vec2
+from point import Point2
 
 RGB_MASK = 0xFFFFFF
 
@@ -11,8 +13,10 @@ class Canvas2D:
         self.height = height
         self.pixel_buffer = pixel_buffer
 
+
     def draw_point(self, x: int, y: int, color: int):
         self.pixel_buffer.fill_pixel(x, y, color)
+
 
     def draw_line_naive(self, x0: int, y0: int, x1: int, y1: int, color: int):
         """
@@ -55,6 +59,7 @@ class Canvas2D:
                 x = int(round((y - b) / m))
                 self.pixel_buffer.fill_pixel(x, y, color)
 
+
     def draw_line(self, x0: int, y0: int, x1: int, y1: int, color: int):
         """
         Bresenham algorithm
@@ -92,11 +97,57 @@ class Canvas2D:
                 eps += abs(dx)
 
 
-
-
-
-
     def draw_rect(self, x: int, y: int, width: int, height: int, color: int):
         self.pixel_buffer.fill_rect(x, y, width, height, color)
 
     
+    def draw_triangle(self, p0: Point2, p1: Point2, p2: Point2, color: int):
+        self.draw_line(p0.x, p0.y, p1.x, p1.y, color)
+        self.draw_line(p1.x, p1.y, p2.x, p2.y, color)
+        self.draw_line(p2.x, p2.y, p0.x, p0.y, color)
+
+        min_x = min(p0.x, p1.x, p2.x)
+        min_y = min(p0.y, p1.y, p2.y)
+        max_x = max(p0.x, p1.x, p2.x)
+        max_y = max(p0.y, p1.y, p2.y)
+
+        for y in range(min_y, max_y + 1):
+            for x in range(min_x, max_x + 1):
+                test_point = Point2(x, y)
+                if self._point_within_triangle(test_point, p0, p1, p2):
+                    self.pixel_buffer.fill_pixel(x, y, color)
+
+    
+    def _point_within_triangle(self, test_point: Point2, p0: Point2, p1: Point2, p2: Point2) -> bool:
+        # Find barycentric coordinates.
+        A = Vec2.point(p0)
+        B = Vec2.point(p1)
+        C = Vec2.point(p2)
+        P = Vec2.point(test_point)
+
+        AB = B - A
+        AC = C - A
+        BC = C - B
+        AP = P - A
+        BP = P - B
+
+        # Area of triangle.
+        ABC = abs(AB.cross(AC)) / 2
+
+        # Find signed areas of subtriangles.
+        flip = 1 if AC.cross(AB) > 0 else -1
+        ABP = flip * (AP.cross(AB) / 2)
+        BCP = flip * (BP.cross(BC) / 2)
+        CAP = flip * (AC.cross(AP) / 2)
+
+        # Find barycentric coordinates.
+        phi_A = BCP / ABC
+        phi_B = CAP / ABC
+        phi_C = ABP / ABC
+
+        # Check that the values are within the triangle.
+        within_A = phi_A >= 0.0 and phi_A <= 1.0
+        within_B = phi_B >= 0.0 and phi_B <= 1.0
+        within_C = phi_C >= 0.0 and phi_C <= 1.0
+
+        return within_A and within_B and within_C
