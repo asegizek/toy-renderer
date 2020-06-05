@@ -25,4 +25,4 @@ class Point3:
         return f"({self.x}, {self.y}, {self.z})"
 
     def __repr__(self):
-        return f"Point3({self.x}, {self.y}, {self.z})
+        return f"Point3({self.x}, {self.y}, {self.z})"
