@@ -25,12 +25,12 @@ class Vec2:
     def __sub__(self, other) -> "Vec2":
         return Vec2(self.x - other.x, self.y - other.y)
 
-    def __iadd__(self, other):
+    def __iadd__(self, other) -> "Vec2":
         self.x += other.x
         self.y += other.y
         return self
 
-    def __isub__(self, other):
+    def __isub__(self, other) -> "Vec2":
         self.x -= other.x
         self.y -= other.y
         return self
@@ -72,13 +72,13 @@ class Vec3:
     def __sub__(self, other) -> "Vec3":
         return Vec3(self.x - other.x, self.y - other.y, self.z - other.z)
 
-    def __iadd__(self, other):
+    def __iadd__(self, other) -> "Vec3":
         self.x += other.x
         self.y += other.y
         self.z += other.z
         return self
 
-    def __isub__(self, other):
+    def __isub__(self, other) -> "Vec3":
         self.x -= other.x
         self.y -= other.y
         self.z -= other.z
