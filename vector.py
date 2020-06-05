@@ -40,10 +40,10 @@ class Vec2:
         return Vec2(point.x, point.y)
 
     def __str__(self):
-        return f"Vec2({self.x}, {self.y})"
+        return f"<{self.x}, {self.y}>"
 
     def __repr__(self):
-        return f"Vec2({self.x}, {self.y}) at {hex(id(self))}"
+        return f"Vec2<{self.x}, {self.y}> at {hex(id(self))}"
 
 
 
@@ -93,7 +93,7 @@ class Vec3:
         return Vec3(point.x, point.y, point.z)
 
     def __str__(self):
-        return f"Vec3({self.x}, {self.y}, {self.z})"
+        return f"Vec3<{self.x}, {self.y}, {self.z}>"
 
     def __repr__(self):
-        return f"Vec3({self.x}, {self.y}, {self.z}) at {hex(id(self))}"
+        return f"Vec3<{self.x}, {self.y}, {self.z}> at {hex(id(self))}"
